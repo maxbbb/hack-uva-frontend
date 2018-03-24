@@ -6,16 +6,23 @@ import {
   Image,
   View,
   ImageBackground,
-  Dimensions
+  Dimensions,
+  TouchableOpacity
 } from "react-native";
 import backgroundImage from "../assets/background.jpg";
 const { height, width } = Dimensions.get("window");
+import Auth from "../auth.js";
+const auth = new Auth();
 
 export default class Home extends Component {
+  login = () => {
+    auth.login();
+  };
+
   render() {
     return (
       <View style={styles.pageContainer}>
-        <NavBar />
+        <NavBar login={this.login} />
         <ImageBackground
           style={styles.backgroundImage}
           source={backgroundImage}
@@ -27,11 +34,15 @@ export default class Home extends Component {
   }
 }
 
-const NavBar = () => {
+const NavBar = ({ login }) => {
   return (
     <View style={styles.navbar}>
       <Text style={styles.navbarText}>Home</Text>
-      <Text style={styles.navbarText}>Login</Text>
+      <TouchableOpacity onPress={login}>
+        <View>
+          <Text style={styles.navbarText}>Login</Text>
+        </View>
+      </TouchableOpacity>
       <Text style={styles.navbarText}>Signup</Text>
     </View>
   );

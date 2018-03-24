@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import SimpleStorageContract from "../build/contracts/SimpleStorage.json";
 import getWeb3 from "./utils/getWeb3";
 import { AppRegistry, StyleSheet, Text, View } from "react-native";
-import Home from "./components/Home.js";
 import firebase from "./firebase.js";
 import {
   BrowserRouter as Router,
@@ -11,10 +10,10 @@ import {
   Route,
   Switch
 } from "react-router-dom";
-import "./css/oswald.css";
-import "./css/open-sans.css";
-import "./css/pure-min.css";
-import "./App.css";
+
+import Home from "./components/Home.js";
+import SearchHome from "./components/SearchHome.js";
+import ClaimProperty from "./components/Forms/ClaimProperty.js";
 
 class App extends Component {
   constructor(props) {
@@ -110,6 +109,8 @@ class App extends Component {
       // </div>
       <Router>
         <Switch>
+          <Route exact path="/home" component={SearchHome} />
+          <Route exact path="/claim" component={ClaimProperty} />
           <Route component={Home} />
         </Switch>
       </Router>
