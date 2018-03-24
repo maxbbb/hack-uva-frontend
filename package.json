@@ -49,11 +49,13 @@
     "whatwg-fetch": "1.0.0"
   },
   "dependencies": {
+    "babel-plugin-react-native-web": "^0.5.3",
     "dotenv": "^2.0.0",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2",
+    "react": "^16.0.0",
+    "react-bits": "^1.0.5",
+    "react-dom": "^16.0.0",
     "react-lottie": "^1.0.0",
-    "react-primitives": "https://github.com/dmiller9911/react-bits.git"
+    "react-native-web": "^0.5.3"
   },
   "scripts": {
     "start": "node scripts/start.js",

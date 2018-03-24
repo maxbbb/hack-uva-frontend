@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import SimpleStorageContract from "../build/contracts/SimpleStorage.json";
 import getWeb3 from "./utils/getWeb3";
-import { View, Text, Image, StyleSheet } from "react-primitives";
+import { AppRegistry, StyleSheet, Text, View } from "react-native";
 import Home from "./components/Home.js";
 import "./css/oswald.css";
 import "./css/open-sans.css";
