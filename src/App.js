@@ -3,6 +3,7 @@ import SimpleStorageContract from "../build/contracts/SimpleStorage.json";
 import getWeb3 from "./utils/getWeb3";
 import { AppRegistry, StyleSheet, Text, View } from "react-native";
 import Home from "./components/Home.js";
+import firebase from "./firebase.js";
 import "./css/oswald.css";
 import "./css/open-sans.css";
 import "./css/pure-min.css";
