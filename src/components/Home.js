@@ -15,6 +15,7 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.pageContainer}>
+        <NavBar />
         <ImageBackground
           style={styles.backgroundImage}
           source={backgroundImage}
@@ -25,6 +26,16 @@ export default class Home extends Component {
     );
   }
 }
+
+const NavBar = () => {
+  return (
+    <View style={styles.navbar}>
+      <Text style={styles.navbarText}>Home</Text>
+      <Text style={styles.navbarText}>Login</Text>
+      <Text style={styles.navbarText}>Signup</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   pageContainer: {
@@ -41,5 +52,19 @@ const styles = StyleSheet.create({
     color: "black",
     zIndex: 1000,
     fontWeight: "bold"
+  },
+  navbar: {
+    backgroundColor: "#FAFAFA",
+    width: width,
+    height: height / 10,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center"
+  },
+  navbarText: {
+    fontSize: 24,
+    color: "black",
+    marginLeft: 30,
+    marginRight: 20
   }
 });

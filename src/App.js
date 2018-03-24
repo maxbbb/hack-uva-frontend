@@ -4,6 +4,13 @@ import getWeb3 from "./utils/getWeb3";
 import { AppRegistry, StyleSheet, Text, View } from "react-native";
 import Home from "./components/Home.js";
 import firebase from "./firebase.js";
+import {
+  BrowserRouter as Router,
+  withRouter,
+  Link,
+  Route,
+  Switch
+} from "react-router-dom";
 import "./css/oswald.css";
 import "./css/open-sans.css";
 import "./css/pure-min.css";
@@ -101,9 +108,11 @@ class App extends Component {
       //     </div>
       //   </main>
       // </div>
-      <View>
-        <Home />
-      </View>
+      <Router>
+        <Switch>
+          <Route component={Home} />
+        </Switch>
+      </Router>
     );
   }
 }
