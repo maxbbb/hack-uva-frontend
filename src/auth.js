@@ -4,7 +4,7 @@ export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: "lkjadfasdf.au.auth0.com",
     clientID: "ldbX1ExxWWeT6GegdM7W907TXvwwtIfV",
-    redirectUri: "http://localhost:3000/callback",
+    redirectUri: "http://localhost:3000/home",
     audience: "https://lkjadfasdf.au.auth0.com/userinfo",
     responseType: "token id_token",
     scope: "openid"

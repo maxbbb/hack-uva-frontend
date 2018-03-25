@@ -75,6 +75,7 @@ export default class Home extends Component {
                 labelColor="#531B93"
                 labelStyle={{ font: "Avenir" }}
                 buttonStyle={styles.button}
+                onClick={this.login}
               />
             </View>
           </View>
