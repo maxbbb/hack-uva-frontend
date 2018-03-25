@@ -118,8 +118,8 @@ const MapWithASearchBox = compose(
       this.setState({
         bounds: null,
         center: {
-          lat: 41.9,
-          lng: -87.624
+          lat: 18.422941,
+          lng: -66.060647
         },
         markers: [],
         onMapMounted: ref => {
@@ -136,7 +136,10 @@ const MapWithASearchBox = compose(
         },
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
-          const bounds = "19.98, 19.49";
+          const bounds = {
+            lat: 18.422941,
+            lng: -66.060647
+          };
 
           places.forEach(place => {
             if (place.geometry.viewport) {
@@ -176,7 +179,7 @@ const MapWithASearchBox = compose(
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
       onPlacesChanged={props.onPlacesChanged}
-      controlPosition={props.center}
+      //   controlPosition={100}
     >
       <input
         type="text"

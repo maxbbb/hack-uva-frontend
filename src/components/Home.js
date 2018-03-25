@@ -16,8 +16,36 @@ const { height, width } = Dimensions.get("window");
 import "./Home.css";
 import Auth from "../auth.js";
 const auth = new Auth();
+import lottie from "lottie-web";
+import anim1 from "../assets/search_ask_loop.json";
+import anim2 from "../assets/search_ask_loop.json";
+import anim3 from "../assets/search_ask_loop.json";
 
 export default class Home extends Component {
+  componentDidMount() {
+    const animation1 = lottie.loadAnimation({
+      container: document.getElementById("anim1"), // the dom element that will contain the animation
+      renderer: "svg",
+      loop: true,
+      autoplay: true,
+      animationData: anim1
+    });
+    const animation2 = lottie.loadAnimation({
+      container: document.getElementById("anim2"), // the dom element that will contain the animation
+      renderer: "svg",
+      loop: true,
+      autoplay: true,
+      animationData: anim2
+    });
+    const animation3 = lottie.loadAnimation({
+      container: document.getElementById("anim3"), // the dom element that will contain the animation
+      renderer: "svg",
+      loop: true,
+      autoplay: true,
+      animationData: anim3
+    });
+  }
+
   login = () => {
     auth.login();
   };
@@ -43,36 +71,45 @@ export default class Home extends Component {
             </View>
           </View>
         </div>
+        <View style={styles.problemContainer}>
+          <Text style={styles.problemHeader}>The Problem</Text>
+          <Text>
+            asldfkajsdlfkajdsf alsdkjf alsdkf jalsdkfja dflakjdf alskdfjas
+            ldfasd
+          </Text>
+        </View>
 
-        <div style={{ width: width, height: height }}>
-          <div
-            style={{
-              zIndex: 10,
-              display: "flex",
-              alignItems: "flex-start",
-              justifyContent: "flex-start"
-            }}
-          >
-            <View style={styles.textContainer}>
-              <Text style={styles.headerText}>Terreno Nuevo</Text>
-            </View>
-          </div>
-        </div>
+        <View style={styles.informationContainer}>
+          <Topic
+            animation={anim1}
+            title={"Reliable"}
+            description="my ass"
+            index={1}
+          />
+          <Topic
+            animation={anim2}
+            title="Transparent"
+            description="my ass"
+            index={2}
+          />
+          <Topic
+            animation={anim3}
+            title="Inclusive"
+            description="my ass"
+            index={3}
+          />
+        </View>
       </div>
     );
   }
 }
 
-const NavBar = ({ login }) => {
+const Topic = ({ title, description, animation, index }) => {
   return (
-    <View style={styles.navbar}>
-      <Text style={styles.navbarText}>Home</Text>
-      <TouchableOpacity onPress={login}>
-        <View>
-          <Text style={styles.navbarText}>Login</Text>
-        </View>
-      </TouchableOpacity>
-      <Text style={styles.navbarText}>Signup</Text>
+    <View style={styles.pointContainer}>
+      <div style={{ width: 100, height: 100 }} id={"anim" + index} />
+      <Text>{title}</Text>
+      <Text>{description}</Text>
     </View>
   );
 };
@@ -80,6 +117,18 @@ const NavBar = ({ login }) => {
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1
+  },
+  problemContainer: {
+    width: width,
+    height: height,
+    backgroundColor: "#fafafa",
+    justifyContent: "space-around",
+    alignItems: "center"
+  },
+  problemHeader: {
+    fontSize: 72,
+    fontWeight: 100,
+    font: "Avenir-Light"
   },
   backgroundImage: {
     width: width,
@@ -117,19 +166,16 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     backgroundColor: "purple"
   },
-
-  navbar: {
-    backgroundColor: "#FAFAFA",
+  informationContainer: {
     width: width,
-    height: height / 10,
+    height: height,
+    backgroundColor: "#fafafa",
     flexDirection: "row",
-    justifyContent: "flex-end",
-    alignItems: "center"
+    justifyContent: "space-around"
   },
-  navbarText: {
-    fontSize: 24,
-    color: "black",
-    marginLeft: 30,
-    marginRight: 20
+  pointContainer: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
