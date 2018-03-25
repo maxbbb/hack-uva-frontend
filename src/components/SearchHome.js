@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 import React, { Component } from "react";
 import {
   AppRegistry,
@@ -17,12 +19,18 @@ import AdvancedSearch from "./Modals/AdvancedSearch.js";
 import { Tabs, Tab } from "material-ui";
 
 const _ = require("lodash");
-const { compose, withProps, lifecycle } = require("recompose");
+const {
+  compose,
+  withProps,
+  lifecycle,
+  withStateHandlers
+} = require("recompose");
 const {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker
+  Marker,
+  InfoWindow
 } = require("react-google-maps");
 const {
   SearchBox
@@ -73,18 +81,7 @@ export default class SearchHome extends Component {
       <MuiThemeProvider>
         <View>
           <Navbar />
-
-          <Tabs>
-            <Tab label="List Search">
-              <PlacesWithStandaloneSearchBox />
-              <ScrollView>
-                {this._renderProperties(this.state.properties)}
-              </ScrollView>
-            </Tab>
-            <Tab label="Map Search">
-              <MapWithASearchBox />
-            </Tab>
-          </Tabs>
+          <MapWithASearchBox test={"test"} />
           {/* <button onClick={this.openModal}>Open modal</button> */}
         </View>
         <Modal open={this.state.modalIsOpen} onClose={this.closeModal}>
@@ -108,7 +105,7 @@ const MapWithASearchBox = compose(
     googleMapURL:
       "https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: height * 0.85 }} />,
+    containerElement: <div style={{ height: height * 0.9 }} />,
     mapElement: <div style={{ height: `100%` }} />
   }),
   lifecycle({
@@ -118,8 +115,8 @@ const MapWithASearchBox = compose(
       this.setState({
         bounds: null,
         center: {
-          lat: 18.422941,
-          lng: -66.060647
+          lat: 41.9,
+          lng: -87.624
         },
         markers: [],
         onMapMounted: ref => {
@@ -136,10 +133,9 @@ const MapWithASearchBox = compose(
         },
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
-          const bounds = {
-            lat: 18.422941,
-            lng: -66.060647
-          };
+          const bounds = new google.maps.LatLngBounds();
+          console.log(places[0].formatted_address, "places");
+          this.setState({ address: places[0].formatted_address });
 
           places.forEach(place => {
             if (place.geometry.viewport) {
@@ -167,28 +163,39 @@ const MapWithASearchBox = compose(
     }
   }),
   withScriptjs,
-  withGoogleMap
+  withGoogleMap,
+  withStateHandlers(
+    () => ({
+      isOpen: false
+    }),
+    {
+      onToggleOpen: ({ isOpen }) => () => ({
+        isOpen: !isOpen
+      })
+    }
+  )
 )(props => (
   <GoogleMap
     ref={props.onMapMounted}
     defaultZoom={15}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
+    clickableIcons={true}
   >
     <SearchBox
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
+      controlPosition={google.maps.ControlPosition.TOP_LEFT}
       onPlacesChanged={props.onPlacesChanged}
-      //   controlPosition={100}
     >
       <input
         type="text"
-        placeholder="Customized your placeholder"
+        placeholder="Search Properties"
         style={{
           boxSizing: `border-box`,
           border: `1px solid transparent`,
-          width: `240px`,
-          height: `32px`,
+          width: `400px`,
+          height: `52px`,
           marginTop: `27px`,
           padding: `0 12px`,
           borderRadius: `3px`,
@@ -199,76 +206,25 @@ const MapWithASearchBox = compose(
         }}
       />
     </SearchBox>
-    {props.markers.map((marker, index) => (
-      <Marker key={index} position={marker.position} />
-    ))}
+    {props.markers.map((marker, index) => {
+      console.log(props, "marker");
+      return (
+        <Marker
+          key={index}
+          position={marker.position}
+          onClick={props.onToggleOpen}
+        >
+          {props.isOpen && (
+            <InfoWindow onCloseClick={props.onToggleOpen}>
+              <View>
+                <Text>{props.address}</Text>
+              </View>
+            </InfoWindow>
+          )}
+        </Marker>
+      );
+    })}
   </GoogleMap>
-));
-
-const PlacesWithStandaloneSearchBox = compose(
-  withProps({
-    googleMapURL:
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places",
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />
-  }),
-  lifecycle({
-    componentWillMount() {
-      const refs = {};
-
-      this.setState({
-        places: [],
-        onSearchBoxMounted: ref => {
-          refs.searchBox = ref;
-        },
-        onPlacesChanged: () => {
-          const places = refs.searchBox.getPlaces();
-
-          this.setState({
-            places
-          });
-        }
-      });
-    }
-  }),
-  withScriptjs
-)(props => (
-  <div data-standalone-searchbox="">
-    <StandaloneSearchBox
-      ref={props.onSearchBoxMounted}
-      bounds={props.bounds}
-      onPlacesChanged={props.onPlacesChanged}
-    >
-      <input
-        type="text"
-        placeholder="Search Titles"
-        style={{
-          boxSizing: `border-box`,
-          border: `1px solid transparent`,
-          width: width,
-          marginTop: 10,
-          height: `32px`,
-          padding: `0 12px`,
-          borderRadius: `3px`,
-          boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-          fontSize: `14px`,
-          outline: `none`,
-          textOverflow: `ellipses`
-        }}
-      />
-    </StandaloneSearchBox>
-    <ol>
-      {props.places.map(
-        ({ place_id, formatted_address, geometry: { location } }) => (
-          <li key={place_id}>
-            {formatted_address}
-            {" at "}
-            ({location.lat()}, {location.lng()})
-          </li>
-        )
-      )}
-    </ol>
-  </div>
 ));
 
 const customStyles = {

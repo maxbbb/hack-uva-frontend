@@ -22,8 +22,13 @@ import anim2 from "../assets/transparent.json";
 import anim3 from "../assets/logo_intro.json";
 import anim4 from "../assets/problem.json";
 
+import Multisig from "../../contracts/Multisig.sol";
+
 export default class Home extends Component {
   componentDidMount() {
+    Multisig.submitApplication("lkajsdfk", "aksldfjadsf").then(instance => {
+      console.log(instance, "instance");
+    });
     const animation1 = lottie.loadAnimation({
       container: document.getElementById("anim1"), // the dom element that will contain the animation
       renderer: "svg",
@@ -71,6 +76,7 @@ export default class Home extends Component {
 
             <View style={styles.button}>
               <RaisedButton
+                onClick={this.login}
                 label="Begin"
                 labelColor="#531B93"
                 labelStyle={{ font: "Avenir" }}

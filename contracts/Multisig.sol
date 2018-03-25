@@ -128,6 +128,7 @@ contract Multisig {
     * @param docHash is the docHash
     * @param theAddress is the address
     */
+
     function submitApplication(bytes32 _docHash, string _theAddress)
         public
         isApplicant(msg.sender)
