@@ -188,7 +188,7 @@ const MapWithASearchBox = compose(
     <SearchBox
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
-      controlPosition={google.maps.ControlPosition.TOP_LEFT}
+      controlPosition={google.maps.ControlPosition.TOP_CENTER}
       onPlacesChanged={props.onPlacesChanged}
     >
       <input

@@ -22,8 +22,6 @@ import anim2 from "../assets/transparent.json";
 import anim3 from "../assets/logo_intro.json";
 import anim4 from "../assets/problem.json";
 
-import Multisig from "../../contracts/Multisig.sol";
-
 export default class Home extends Component {
   componentDidMount() {
     const animation1 = lottie.loadAnimation({
@@ -73,11 +71,11 @@ export default class Home extends Component {
 
             <View style={styles.button}>
               <RaisedButton
-                onClick={this.login}
                 label="Begin"
                 labelColor="#531B93"
                 labelStyle={{ font: "Avenir" }}
                 buttonStyle={styles.button}
+                onClick={this.login}
               />
             </View>
           </View>
@@ -103,19 +101,19 @@ export default class Home extends Component {
           <Topic
             animation={anim1}
             title={"Reliable"}
-            description="my ass"
+            description="Securing our backend database with thousands of nodes to achieve high data availability"
             index={1}
           />
           <Topic
             animation={anim2}
             title="Transparent"
-            description="my ass"
+            description="Facilitating public auditability via multi-signature smart contracts on the blockchain"
             index={2}
           />
           <Topic
             animation={anim3}
             title="Inclusive"
-            description="my ass"
+            description="Increasing accessibility to disaster relief aid, small business loans, and insurance for those who need it the most"
             index={3}
           />
         </View>
@@ -140,13 +138,15 @@ const styles = StyleSheet.create({
   },
   topicHeader: {
     fontSize: 40,
-    fontWeight: 100,
+    fontWeight: 300,
     font: "Avenir"
   },
   topicDescription: {
     fontSize: 30,
     fontWeight: 100,
-    font: "Avenir"
+    font: "Avenir",
+    margin: 20,
+    textAlign: "center"
   },
   problemContainer: {
     width: width,
@@ -217,6 +217,7 @@ const styles = StyleSheet.create({
   pointContainer: {
     flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    width: width / 4
   }
 });

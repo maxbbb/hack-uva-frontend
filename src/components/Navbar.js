@@ -10,18 +10,40 @@ import {
   TouchableOpacity
 } from "react-native";
 
+import RaisedButton from "material-ui/RaisedButton";
+import IconMenu from "material-ui/IconMenu";
+import MenuItem from "material-ui/MenuItem";
+import { Link } from "react-router-dom";
+
 const { height, width } = Dimensions.get("window");
 
 const NavBar = ({ login }) => {
   return (
     <View style={styles.navbar}>
-      <Text style={styles.navbarText}>Home</Text>
-      <TouchableOpacity onPress={login}>
-        <View>
-          <Text style={styles.navbarText}>Login</Text>
+      <Text style={styles.logoText}>NEW TERRAIN</Text>
+
+      <View style={{ flexDirection: "row" }}>
+        <View style={styles.button}>
+          
+          <Link to="/claim">
+            <RaisedButton
+              label="Lawyer Validation"
+              labelColor="#531B93"
+              labelStyle={{ font: "Avenir" }}
+              buttonStyle={styles.button}
+            />
+          </Link>
         </View>
-      </TouchableOpacity>
-      <Text style={styles.navbarText}>Signup</Text>
+
+        <View style={styles.button}>
+          <RaisedButton
+            label="Manager Validation"
+            labelColor="#531B93"
+            labelStyle={{ font: "Avenir" }}
+            buttonStyle={styles.button}
+          />
+        </View>
+      </View>
     </View>
   );
 };
@@ -30,17 +52,29 @@ export default NavBar;
 
 const styles = StyleSheet.create({
   navbar: {
-    backgroundColor: "#FAFAFA",
+    backgroundColor: "#531B93",
     width: width,
-    height: height / 10,
+    height: height / 12,
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     alignItems: "center"
   },
+  logoText: {
+    fontSize: 17,
+    color: "white",
+    marginLeft: 30,
+    marginRight: 20,
+    font: "Avenir",
+    fontWeight: 50
+  },
   navbarText: {
-    fontSize: 24,
+    fontSize: 17,
     color: "black",
     marginLeft: 30,
+    marginRight: 20
+  },
+  button: {
+    width: width / 6,
     marginRight: 20
   }
 });
