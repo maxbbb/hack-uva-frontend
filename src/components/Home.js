@@ -17,9 +17,10 @@ import "./Home.css";
 import Auth from "../auth.js";
 const auth = new Auth();
 import lottie from "lottie-web";
-import anim1 from "../assets/search_ask_loop.json";
-import anim2 from "../assets/search_ask_loop.json";
-import anim3 from "../assets/search_ask_loop.json";
+import anim1 from "../assets/reliable.json";
+import anim2 from "../assets/transparent.json";
+import anim3 from "../assets/logo_intro.json";
+import anim4 from "../assets/problem.json";
 
 export default class Home extends Component {
   componentDidMount() {
@@ -44,6 +45,13 @@ export default class Home extends Component {
       autoplay: true,
       animationData: anim3
     });
+    const animation4 = lottie.loadAnimation({
+      container: document.getElementById("anim4"), // the dom element that will contain the animation
+      renderer: "svg",
+      loop: true,
+      autoplay: true,
+      animationData: anim4
+    });
   }
 
   login = () => {
@@ -55,7 +63,7 @@ export default class Home extends Component {
       <div>
         <div className="container">
           <View style={styles.textContainer}>
-            <Text style={styles.headerText}>NEW TERRANE</Text>
+            <Text style={styles.headerText}>NEW TERRAIN</Text>
 
             <Text style={styles.subtitleText}>
               A new solution to property managment on the Blockchain
@@ -71,13 +79,22 @@ export default class Home extends Component {
             </View>
           </View>
         </div>
-        <View style={styles.problemContainer}>
+
+        <div className="container2">
+          <div
+            style={{ width: 100, height: 100, zIndex: 10000 }}
+            id={"anim4"}
+          />
           <Text style={styles.problemHeader}>The Problem</Text>
-          <Text>
-            asldfkajsdlfkajdsf alsdkjf alsdkf jalsdkfja dflakjdf alskdfjas
-            ldfasd
+          <Text style={styles.problemSubtitle}>
+            After Hurricane Maria wreaked havoc on the Commonwealth of Puerto
+            Rico in September 2017, millions were left with damaged homes
+            without power or water. The island’s entrenched property title
+            management system meant that 52% of Puerto Ricans could not prove
+            property ownership to insurers, federal agencies and banks - crucial
+            in seeking disaster relief aid.
           </Text>
-        </View>
+        </div>
 
         <View style={styles.informationContainer}>
           <Topic
@@ -107,9 +124,9 @@ export default class Home extends Component {
 const Topic = ({ title, description, animation, index }) => {
   return (
     <View style={styles.pointContainer}>
-      <div style={{ width: 100, height: 100 }} id={"anim" + index} />
-      <Text>{title}</Text>
-      <Text>{description}</Text>
+      <div style={{ width: 300, height: 300 }} id={"anim" + index} />
+      <Text style={styles.topicHeader}>{title}</Text>
+      <Text style={styles.topicDescription}>{description}</Text>
     </View>
   );
 };
@@ -118,17 +135,38 @@ const styles = StyleSheet.create({
   pageContainer: {
     flex: 1
   },
+  topicHeader: {
+    fontSize: 40,
+    fontWeight: 100,
+    font: "Avenir"
+  },
+  topicDescription: {
+    fontSize: 30,
+    fontWeight: 100,
+    font: "Avenir"
+  },
   problemContainer: {
     width: width,
     height: height,
     backgroundColor: "#fafafa",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
+    zIndex: 1000
   },
   problemHeader: {
     fontSize: 72,
     fontWeight: 100,
-    font: "Avenir-Light"
+    font: "Avenir-Light",
+    zIndex: 10000
+  },
+  problemSubtitle: {
+    fontSize: 30,
+    fontWeight: 100,
+    margin: 75,
+    lineHeight: 50,
+    font: "Avenir-Light",
+    zIndex: 10000,
+    textAlign: "center"
   },
   backgroundImage: {
     width: width,
@@ -169,7 +207,7 @@ const styles = StyleSheet.create({
   informationContainer: {
     width: width,
     height: height,
-    backgroundColor: "#fafafa",
+    backgroundColor: "rgba(83,27,147,0.1)",
     flexDirection: "row",
     justifyContent: "space-around"
   },
