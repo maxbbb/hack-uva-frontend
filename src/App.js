@@ -3,6 +3,7 @@ import SimpleStorageContract from "../build/contracts/SimpleStorage.json";
 import getWeb3 from "./utils/getWeb3";
 import { AppRegistry, StyleSheet, Text, View } from "react-native";
 import firebase from "./firebase.js";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import {
   BrowserRouter as Router,
   withRouter,
@@ -107,13 +108,15 @@ class App extends Component {
       //     </div>
       //   </main>
       // </div>
-      <Router>
-        <Switch>
-          <Route exact path="/home" component={SearchHome} />
-          <Route exact path="/claim" component={ClaimProperty} />
-          <Route component={Home} />
-        </Switch>
-      </Router>
+      <MuiThemeProvider>
+        <Router>
+          <Switch>
+            <Route exact path="/home" component={SearchHome} />
+            <Route exact path="/claim" component={ClaimProperty} />
+            <Route component={Home} />
+          </Switch>
+        </Router>
+      </MuiThemeProvider>
     );
   }
 }

@@ -13,7 +13,8 @@ import {
 
 import Modal from "react-responsive-modal";
 import AdvancedSearch from "./Modals/AdvancedSearch.js";
-import anim from "../assets/search_ask_loop.json";
+
+import { Tabs, Tab } from "material-ui";
 
 const _ = require("lodash");
 const { compose, withProps, lifecycle } = require("recompose");
@@ -39,6 +40,7 @@ import Snackbar from "material-ui/Snackbar";
 import TextField from "material-ui/TextField";
 
 import lottie from "lottie-web";
+import Navbar from "../components/Navbar.js";
 
 export default class SearchHome extends Component {
   constructor(props) {
@@ -49,25 +51,8 @@ export default class SearchHome extends Component {
     };
   }
 
-  componentDidMount() {
-    const animation = lottie.loadAnimation({
-      container: document.getElementById("lottie"), // the dom element that will contain the animation
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      animationData: anim
-    });
-
-    animation.play();
-  }
-
   openModal = () => {
     this.setState({ modalIsOpen: true });
-  };
-
-  afterOpenModal = () => {
-    // references are now sync'd and can be accessed.
-    this.subtitle.style.color = "#f00";
   };
 
   closeModal = () => {
@@ -85,18 +70,27 @@ export default class SearchHome extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Search Page</Text>
-        <PlacesWithStandaloneSearchBox />
-        <ScrollView>{this._renderProperties(this.state.properties)}</ScrollView>
+      <MuiThemeProvider>
+        <View>
+          <Navbar />
+
+          <Tabs>
+            <Tab label="List Search">
+              <PlacesWithStandaloneSearchBox />
+              <ScrollView>
+                {this._renderProperties(this.state.properties)}
+              </ScrollView>
+            </Tab>
+            <Tab label="Map Search">
+              <MapWithASearchBox />
+            </Tab>
+          </Tabs>
+          {/* <button onClick={this.openModal}>Open modal</button> */}
+        </View>
         <Modal open={this.state.modalIsOpen} onClose={this.closeModal}>
           <AdvancedSearch />
         </Modal>
-        <button onClick={this.openModal}>Open modal</button>
-        <g style={{ width: 200, height: 200 }}>
-          <svg preserveAspectRatio viewBox="0 0 200 200" id="lottie" />
-        </g>
-      </View>
+      </MuiThemeProvider>
     );
   }
 }
@@ -114,7 +108,7 @@ const MapWithASearchBox = compose(
     googleMapURL:
       "https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places",
     loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
+    containerElement: <div style={{ height: height * 0.85 }} />,
     mapElement: <div style={{ height: `100%` }} />
   }),
   lifecycle({
@@ -182,7 +176,7 @@ const MapWithASearchBox = compose(
       ref={props.onSearchBoxMounted}
       bounds={props.bounds}
       onPlacesChanged={props.onPlacesChanged}
-      //   controlPosition={20}
+      controlPosition={props.center}
     >
       <input
         type="text"
@@ -248,7 +242,8 @@ const PlacesWithStandaloneSearchBox = compose(
         style={{
           boxSizing: `border-box`,
           border: `1px solid transparent`,
-          width: width / 2,
+          width: width,
+          marginTop: 10,
           height: `32px`,
           padding: `0 12px`,
           borderRadius: `3px`,
