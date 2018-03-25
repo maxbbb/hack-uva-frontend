@@ -15,7 +15,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Snackbar from "material-ui/Snackbar";
 import TextField from "material-ui/TextField";
 import lottie from "lottie-web";
-import anim from "../../assets/search_ask_loop.json";
+import anim from "../../assets/icon_success.json";
 
 export default class AdvancedSearch extends Component {
   constructor(props) {
@@ -37,14 +37,18 @@ export default class AdvancedSearch extends Component {
 
   render() {
     return (
-      <View>
-        <div style={{ width: 100, height: 100 }} id="lottie" />
-        <Text style={{ fontSize: 40, color: "black" }}>advanced search</Text>
+      <View style={styles.container}>
+        <div style={{ width: 200, height: 200 }} id="lottie" />
+        <Text style={{ fontSize: 40, color: "black" }} />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {}
+  container: {
+    alignSelf: "center",
+    height: height / 3,
+    width: width / 3
+  }
 });

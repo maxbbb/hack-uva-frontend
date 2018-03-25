@@ -17,6 +17,7 @@ import Modal from "react-responsive-modal";
 import AdvancedSearch from "./Modals/AdvancedSearch.js";
 
 import { Tabs, Tab } from "material-ui";
+import RaisedButton from "material-ui/RaisedButton";
 
 const _ = require("lodash");
 const {
@@ -49,6 +50,8 @@ import TextField from "material-ui/TextField";
 
 import lottie from "lottie-web";
 import Navbar from "../components/Navbar.js";
+
+import { Link } from "react-router-dom";
 
 export default class SearchHome extends Component {
   constructor(props) {
@@ -216,8 +219,24 @@ const MapWithASearchBox = compose(
         >
           {props.isOpen && (
             <InfoWindow onCloseClick={props.onToggleOpen}>
-              <View>
+              <View
+                style={{
+                  height: 150,
+                  justifyContent: "space-around",
+                  alignItems: "center"
+                }}
+              >
                 <Text>{props.address}</Text>
+                <Link
+                  to={{ pathname: "claim", state: { address: props.address } }}
+                >
+                  <RaisedButton
+                    label="Claim Property"
+                    labelColor="#531B93"
+                    labelStyle={{ font: "Avenir" }}
+                    buttonStyle={styles.button}
+                  />
+                </Link>
               </View>
             </InfoWindow>
           )}
@@ -239,5 +258,11 @@ const customStyles = {
 };
 
 const styles = StyleSheet.create({
-  modal: {}
+  modal: {},
+  button: {
+    margin: 25,
+    width: width / 6,
+    alignSelf: "flex-start",
+    backgroundColor: "purple"
+  }
 });
