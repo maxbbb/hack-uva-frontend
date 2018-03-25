@@ -14,6 +14,7 @@ const { height, width } = Dimensions.get("window");
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Snackbar from "material-ui/Snackbar";
 import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
 
 export default class ClaimProperty extends Component {
   constructor(props) {
@@ -29,15 +30,18 @@ export default class ClaimProperty extends Component {
     return (
       <MuiThemeProvider>
         <View style={styles.pageContainer}>
-          <Text style={styles.headerText}>File A Claim For Your Property</Text>
           <View style={styles.textFieldContainer}>
+            <Text style={styles.headerText}>
+              File A Claim For Your Property
+            </Text>
+
             <TextField
               underlineFocusStyle={styles.underline}
               floatingLabelStyle={styles.floatingLabel}
-              hintText="Evan Stevens"
+              hintText="Ricardo Rose"
               errorText={this.state.nameError}
               fullWidth={true}
-              floatingLabelText="Name"
+              floatingLabelText="Buyer Name"
               floatingLabelFixed={true}
               value={this.state.firstName}
               onChange={(event, value) => this.setState({ firstName: value })}
@@ -45,10 +49,10 @@ export default class ClaimProperty extends Component {
             <TextField
               underlineFocusStyle={styles.underline}
               floatingLabelStyle={styles.floatingLabel}
-              hintText="Evan Stevens"
+              hintText="Jose Lopez"
               errorText={this.state.nameError}
               fullWidth={true}
-              floatingLabelText="Name"
+              floatingLabelText="Seller Name"
               floatingLabelFixed={true}
               value={this.state.firstName}
               onChange={(event, value) => this.setState({ lastName: value })}
@@ -56,10 +60,10 @@ export default class ClaimProperty extends Component {
             <TextField
               underlineFocusStyle={styles.underline}
               floatingLabelStyle={styles.floatingLabel}
-              hintText="Evan Stevens"
+              hintText="3850 Fieldcrest"
               errorText={this.state.nameError}
               fullWidth={true}
-              floatingLabelText="Name"
+              floatingLabelText="Address"
               floatingLabelFixed={true}
               value={this.state.firstName}
               onChange={(event, value) => this.setState({ lastName: value })}
@@ -67,10 +71,10 @@ export default class ClaimProperty extends Component {
             <TextField
               underlineFocusStyle={styles.underline}
               floatingLabelStyle={styles.floatingLabel}
-              hintText="Evan Stevens"
+              hintText="$100,000"
               errorText={this.state.nameError}
               fullWidth={true}
-              floatingLabelText="Name"
+              floatingLabelText="Price"
               floatingLabelFixed={true}
               value={this.state.firstName}
               onChange={(event, value) => this.setState({ lastName: value })}
@@ -78,21 +82,25 @@ export default class ClaimProperty extends Component {
             <TextField
               underlineFocusStyle={styles.underline}
               floatingLabelStyle={styles.floatingLabel}
-              hintText="Evan Stevens"
+              hintText="2540ft"
               errorText={this.state.nameError}
               fullWidth={true}
-              floatingLabelText="Name"
+              floatingLabelText="Square Feet"
               floatingLabelFixed={true}
               value={this.state.firstName}
               onChange={(event, value) => this.setState({ lastName: value })}
             />
+
+            <View style={{ margin: 50 }}>
+              <RaisedButton
+                label="Submit"
+                labelColor="#531B93"
+                labelStyle={{ font: "Avenir" }}
+                buttonStyle={styles.button}
+                onClick={this.submitClaim}
+              />
+            </View>
           </View>
-          <TouchableOpacity
-            style={styles.submitButton}
-            onPress={this.submitClaim}
-          >
-            <Text style={styles.submitButtonText}>Submit</Text>
-          </TouchableOpacity>
         </View>
       </MuiThemeProvider>
     );
@@ -102,21 +110,31 @@ export default class ClaimProperty extends Component {
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: "#FAFAFA",
-    justifyContent: "space-around",
+    backgroundColor: "white",
+    justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "column"
   },
   headerText: {
-    fontSize: 24,
-    fontWeight: "bold"
+    fontSize: 20,
+    fontWeight: "bold",
+    font: "Avenir",
+    margin: 50
   },
   textFieldContainer: {
     flex: 1,
     width: width / 2,
     flexDirection: "column",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "white",
+    margin: 100,
+    padding: 25,
+    borderRadius: 5,
+    shadowColor: "rgba(0, 0, 0, 0.6)",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2
   },
   submitButton: {
     width: width / 3,
@@ -129,5 +147,12 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
     color: "white"
+  },
+  button: {
+    marginTop: 25,
+    width: width / 3,
+    alignSelf: "flex-start",
+    backgroundColor: "purple",
+    marginBottom: 100
   }
 });
