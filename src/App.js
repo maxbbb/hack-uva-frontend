@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import SimpleStorageContract from "../build/contracts/SimpleStorage.json";
+import SimpleStorageContract from "../build/contracts/Multisig.json";
 import getWeb3 from "./utils/getWeb3";
 import { AppRegistry, StyleSheet, Text, View } from "react-native";
 import firebase from "./firebase.js";
@@ -26,17 +26,19 @@ class App extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // Get network provider and web3 instance.
     // See utils/getWeb3 for more info.
 
     getWeb3
       .then(results => {
+        console.log(results, "results");
         this.setState({
           web3: results.web3
         });
 
         // Instantiate contract once web3 provided.
+
         this.instantiateContract();
       })
       .catch(() => {
@@ -44,7 +46,8 @@ class App extends Component {
       });
   }
 
-  instantiateContract() {
+  instantiateContract = () => {
+    console.log("contract instantiated");
     /*
      * SMART CONTRACT EXAMPLE
      *
@@ -52,7 +55,7 @@ class App extends Component {
      * state management library, but for convenience I've placed them here.
      */
 
-    const contract = require("truffle-contract");
+    const contract = "../contracts/Multisig.sol";
     const simpleStorage = contract(SimpleStorageContract);
     simpleStorage.setProvider(this.state.web3.currentProvider);
 
@@ -60,13 +63,20 @@ class App extends Component {
     var simpleStorageInstance;
 
     // Get accounts.
+    console.log("eth");
     this.state.web3.eth.getAccounts((error, accounts) => {
+      console.log(error, accounts, "get accounts");
       simpleStorage
         .deployed()
         .then(instance => {
           simpleStorageInstance = instance;
 
           // Stores a given value, 5 by default.
+          console.log("success");
+          console.log(
+            simpleStorageInstance.submitApplication("kalsdjfa", "lakjsdflkj")
+          );
+
           return simpleStorageInstance.set(5, { from: accounts[0] });
         })
         .then(result => {
@@ -78,7 +88,7 @@ class App extends Component {
           return this.setState({ storageValue: result.c[0] });
         });
     });
-  }
+  };
 
   render() {
     return (

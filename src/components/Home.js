@@ -26,9 +26,6 @@ import Multisig from "../../contracts/Multisig.sol";
 
 export default class Home extends Component {
   componentDidMount() {
-    Multisig.submitApplication("lkajsdfk", "aksldfjadsf").then(instance => {
-      console.log(instance, "instance");
-    });
     const animation1 = lottie.loadAnimation({
       container: document.getElementById("anim1"), // the dom element that will contain the animation
       renderer: "svg",

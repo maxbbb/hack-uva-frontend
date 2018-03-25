@@ -14,17 +14,30 @@ const { height, width } = Dimensions.get("window");
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Snackbar from "material-ui/Snackbar";
 import TextField from "material-ui/TextField";
+import AdvancedSearch from "../Modals/AdvancedSearch.js";
+import Modal from "react-responsive-modal";
 
 export default class ClaimProperty extends Component {
   constructor(props) {
     super(props);
     this.state = {
       firstName: null,
-      lastName: null
+      lastName: null,
+      modalIsOpen: false
     };
   }
 
-  submitClaim = () => {};
+  openModal = () => {
+    this.setState({ modalIsOpen: true });
+  };
+
+  closeModal = () => {
+    this.setState({ modalIsOpen: false });
+  };
+
+  submitClaim = () => {
+    this.openModal();
+  };
   render() {
     return (
       <MuiThemeProvider>
@@ -93,6 +106,9 @@ export default class ClaimProperty extends Component {
           >
             <Text style={styles.submitButtonText}>Submit</Text>
           </TouchableOpacity>
+          <Modal open={this.state.modalIsOpen} onClose={this.closeModal}>
+            <AdvancedSearch />
+          </Modal>
         </View>
       </MuiThemeProvider>
     );
